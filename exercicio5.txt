@@ -1,0 +1,53 @@
+5- import java.util.Scanner;
+public class GerenciamentoNotas {
+    public static void main(String[] args) {
+        Scanner ler = new Scanner(System.in);
+
+        System.out.print("Quantas materias voce tem no semestre? ");
+        int numMateria = ler.nextInt();
+        ler.nextLine();
+
+        System.out.print("Qual e a media para ser aprovado(a)? ");
+        double mediaAprovacao = ler.nextDouble();
+        ler.nextLine();
+
+        String[] nomesMateria = new String[numMateria];
+        double[] notasP1 = new double[numMateria];
+        double[] notasP2 = new double[numMateria];
+        double[] notasTrabalho = new double[numMateria];
+
+        for (int n = 0; n < numMateria; n++) {
+            System.out.println("Disciplina " + (n + 1));
+
+            System.out.print("Digite o nome da materia: ");
+            nomesMateria[n] = ler.nextLine();
+
+            System.out.print("Nota da P1: ");
+            notasP1[n] =ler.nextDouble();
+
+            System.out.print("Nota da P2: ");
+            notasP2[n] = ler.nextDouble();
+
+            System.out.print("Nota do trabalho: ");
+            notasTrabalho[n] = ler.nextDouble();
+
+            ler.nextLine(); 
+        }
+
+        System.out.println("\nBoletim ");
+        for (int n = 0; n < numMateria; n++) {
+            double mediaMateria = (notasP1[n] + notasP2[n] + notasTrabalho[n]) / 3.0;
+            boolean aprovado = mediaMateria >= mediaAprovacao;
+
+            System.out.println("Materia: " + nomesMateria[n]);
+            
+            System.out.println("Media: " + mediaMateria);
+            
+            
+            System.out.println(aprovado ? "Aprovado" : "Reprovado");
+            System.out.println();
+        }
+
+        ler.close();
+    }
+}
