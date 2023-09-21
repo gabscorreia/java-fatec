@@ -1,0 +1,26 @@
+4- import java.util.Scanner;
+
+public class SenhaSecreta {
+    public static void main(String[] args) {
+        String senhaSecret = "python123";
+        Scanner ler = new Scanner(System.in);
+        int tentativas = 5;
+
+        while (tentativas > 0) {
+            System.out.print("Digite a senha: ");
+            String senha = ler.nextLine();
+
+            if (senha.equals(senhaSecret)) {
+                System.out.println("Senha correta! Acesso concedido.");
+                break;
+            } else {
+            System.out.println("Senha incorreta. Tentativa invalida. Tentativas restantes: " + (--tentativas));
+            }
+        }
+        ler.close();
+
+        if (tentativas == 0) {
+            System.out.println("Voce excedeu o numero maximo de tentativas. Acesso negado.");
+        }
+    }
+}
