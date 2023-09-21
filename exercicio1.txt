@@ -1,0 +1,21 @@
+1-	import java.util.Scanner; 
+     	public class Principal{ 
+   	public static void main(String[] args) { 
+         	int idade; 
+        	Scanner ler = new Scanner(System.in); 
+        	System.out.println("Digite sua idade: "); 
+        	idade = ler.nextInt(); 
+        	if (idade < 18) 
+             {  
+                    System.out.println("Voce e menor de idade"); 
+              }
+              else if (idade >= 18 && idade < 60)
+            { 
+                     System.out.println("Voce e um adulto"); 
+              }  
+               else if (idade >= 60)
+            {
+                    System.out.println("Voce e idoso")
+             }
+    } 
+}
