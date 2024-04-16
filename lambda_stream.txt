@@ -1,0 +1,79 @@
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import com.google.gson.Gson;
+
+
+class Comentario {
+    private int id;
+    private String nome;
+    private String email;
+    private String corpo;
+
+    
+}
+
+
+class Email {
+    private String destinatario;
+    private String assunto;
+    private String corpo;
+
+    
+}
+
+public static void main(String[] args) {
+    
+    String apiUrl = "https://jsonplaceholder.typicode.com/comments";
+
+    
+    Client client = ClientBuilder.newClient();
+
+    
+    WebTarget target = client.target(apiUrl);
+
+    
+    Invocation.Builder request = target.request();
+    Response response = request.get();
+
+    
+    if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+        
+        String jsonString = response.readEntity(String.class);
+
+        List<Comentario> comentarios = Arrays.asList(new Gson().fromJson(jsonString, Comentario[].class));
+
+        
+        processarComentarios(comentarios);
+    } else {
+        
+        System.out.println("Erro ao obter comentários da API: " + response.getStatusInfo());
+    }
+}
+
+private static void processarComentarios(List<Comentario> comentarios) {
+    
+    List<Comentario> comentariosComEmail = comentarios.stream()
+        .filter(comentario -> comentario.getEmail() != null && !comentario.getEmail().isEmpty())
+        .collect(Collectors.toList());
+
+    
+    comentariosComEmail.forEach(comentario -> enviarEmailMarketing(comentario));
+}
+
+private static void enviarEmailMarketing(Comentario comentario) {
+    
+    Email email = new Email();
+    email.setDestinatario(comentario.getEmail());
+    email.setAssunto("Novos produtos/serviços disponíveis!");
+    email.setCorpo("Olá " + comentario.getNome() + ",\n\n" +
+            "Temos o prazer de anunciar o lançamento de novos produtos/serviços que você pode gostar!\n\n" +
+            "[Incluir descrição dos novos produtos/serviços]\n\n" +
+            "Visite nosso site para saber mais: https://empresa.it/\n\n" +
+            "Atenciosamente,\n" +
+            "Equipe da Empresa");
+
+    
+}
